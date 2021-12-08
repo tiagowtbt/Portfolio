@@ -59,7 +59,6 @@ After that, we populate the matrix&amp;rsquo;s graph as said early with a loop a
 	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The code is actually very simple. Just some &lt;code&gt;for&lt;/code&gt; loops that run through the matrix storing the graph data, a random number generator, and an &lt;code&gt;if&lt;/code&gt; that checks if the number is even or odd. If its even, then the lightning strucks the tree in the position m[i][j].&lt;/p&gt;
 &lt;h2 id=&#34;the-matlab-part&#34;&gt;The Matlab part&lt;/h2&gt;
-&lt;p&gt;we dont talk about the matlab part&lt;/p&gt;
 </description>
         </item>
         
