@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tiago Barros</title>
+        <link>https://tiagowtbt.github.io/Portfolio/</link>
+        <description>Recent content on Tiago Barros</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Wed, 08 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tiagowtbt.github.io/Portfolio/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Tarzan&#39;s Forest</title>
+        <link>https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/</link>
+        <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/</guid>
+        <description>&lt;img src="https://tiagowtbt.github.io/p/tarzans-forest/thumb-clear.png" alt="Featured image of post Tarzan&#39;s Forest" /&gt;&lt;p&gt;This one is an old school project, but one that still makes me proud. The actual problem is very simple: Tarzan, the Lord of the Jungle, always traverses the regions of the forest he lives with ease, by jumping from one tree to another.
+But last night, a great storm took down some of the trees. Will tarzan be able to go from one region to another with the remaining trees?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;If you wanna check the code, go to this &lt;a class=&#34;link&#34; href=&#34;https://github.com/tiagowtbt/Tarzan_forest&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub Link&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;the-c-part&#34;&gt;The C part&lt;/h2&gt;
+&lt;p&gt;I can&amp;rsquo;t recall much from the time I made this code, nor I can assure I fully remember how it works. But I had to do some tweaks and updates, like adding a &lt;code&gt;for&lt;/code&gt; loop to populate the graph as the initial state of the forest and a random lightning simulator to act as the storm, since all those tasks were made manually before.&lt;/p&gt;
+&lt;p&gt;First we generate a graph to populate. This is made by a function called &lt;em&gt;create_graph( )&lt;/em&gt; that takes the pointer address from the &lt;em&gt;graph&lt;/em&gt; &lt;code&gt;struct&lt;/code&gt; created in &lt;em&gt;tarzan.h&lt;/em&gt;, and the size of the desired graph as arguments to create a square-zero matrix. The size of the matrix will determine the number of regions in Tarzan&amp;rsquo;s Forest.
+After that, we populate the matrix&amp;rsquo;s graph as said early with a loop and the &lt;em&gt;add_edge( )&lt;/em&gt; function. If the position m[i][j] is populated with 1, it means that there&amp;rsquo;s a tree there, thus creating a path between region i and region j.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;So, in that logic, &lt;strong&gt;the vertices of the graph are the regions and the edges are the trees uniting those regions&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;To ensure that the code is running as we want, we print the edges of the vertices and the matrix.&lt;/p&gt;
+&lt;p&gt;&lt;figure 
+	
+		class=&#34;gallery-image&#34; 
+		style=&#34;
+			flex-grow: 218; 
+			flex-basis: 523px&#34;
+	&gt;
+	&lt;a href=&#34;https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestBeforeStorm.png&#34; data-size=&#34;709x325&#34;&gt;
+		&lt;img src=&#34;https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestBeforeStorm.png&#34;
+			width=&#34;709&#34;
+			height=&#34;325&#34;
+			srcset=&#34;https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestBeforeStorm_hue36bcd56d007237246cce09f0ffeced0_26073_480x0_resize_box_3.png 480w, https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestBeforeStorm_hue36bcd56d007237246cce09f0ffeced0_26073_1024x0_resize_box_3.png 1024w&#34;
+			loading=&#34;lazy&#34;
+			alt=&#34;Matrix output&#34;&gt;
+	&lt;/a&gt;
+	
+	&lt;figcaption&gt;Matrix output&lt;/figcaption&gt;
+	
+&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;After verifying that the initial matrix was sucessfully generated, we then proceed to simulate the storm.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s a snippet of the storm simulation code:&lt;/p&gt;
+&lt;h3 id=&#34;storm-simulation&#34;&gt;Storm Simulation&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;    &lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
+	&lt;span class=&#34;k&#34;&gt;for&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vert&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;		
+	   &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;random&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;rand&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+	   &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;random&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;%&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//if even
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;	      &lt;span class=&#34;n&#34;&gt;lightning&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;j&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;//Graph pointer, m[i], m[j]
+&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;					
+	      &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+	   &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;		
+	&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The code is actually very simple. Just some &lt;code&gt;for&lt;/code&gt; loops that run through the matrix storing the graph data, a random number generator, and an &lt;code&gt;if&lt;/code&gt; that checks if the number is even or odd. If its even, then the lightning strucks the tree in the position m[i][j].&lt;/p&gt;
+&lt;h2 id=&#34;the-matlab-part&#34;&gt;The Matlab part&lt;/h2&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

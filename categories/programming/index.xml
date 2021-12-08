@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Programming on Tiago Barros</title>
+    <link>https://tiagowtbt.github.io/Portfolio/categories/programming/</link>
+    <description>Recent content in Programming on Tiago Barros</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tiagowtbt.github.io/Portfolio/categories/programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tarzan&#39;s Forest</title>
+      <link>https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/</link>
+      <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/</guid>
+      <description>This one is an old school project, but one that still makes me proud. The actual problem is very simple: Tarzan, the Lord of the Jungle, always traverses the regions of the forest he lives with ease, by jumping from one tree to another. But last night, a great storm took down some of the trees. Will tarzan be able to go from one region to another with the remaining trees?</description>
+    </item>
+    
+  </channel>
+</rss>
