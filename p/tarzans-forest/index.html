@@ -123,7 +123,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    4 minute read
                 </time>
             </div>
         
@@ -170,16 +170,96 @@ After that, we populate the matrix&rsquo;s graph as said early with a loop and t
 <p>Here&rsquo;s a snippet of the storm simulation code:</p>
 <h3 id="storm-simulation">Storm Simulation</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">vert</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-	<span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">vert</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>		
-	   <span class="kt">int</span> <span class="n">random</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
-	   <span class="k">if</span> <span class="p">(</span><span class="n">random</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span> <span class="c1">//if even
-</span><span class="c1"></span>	      <span class="n">lightning</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span> <span class="c1">//Graph pointer, m[i], m[j]
+        <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">vert</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>		
+            <span class="kt">int</span> <span class="n">random</span> <span class="o">=</span> <span class="n">rand</span><span class="p">()</span> <span class="o">%</span> <span class="mi">10</span><span class="p">;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">random</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span> <span class="c1">//if even
+</span><span class="c1"></span>	    
+                <span class="n">lightning</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span> <span class="c1">//Graph pointer, m[i], m[j]
 </span><span class="c1"></span>					
-	      <span class="p">}</span>
-	   <span class="p">}</span>		
-	<span class="p">}</span>
-</code></pre></div><p>The code is actually very simple. Just some <code>for</code> loops that run through the matrix storing the graph data, a random number generator, and an <code>if</code> that checks if the number is even or odd. If its even, then the lightning strucks the tree in the position m[i][j].</p>
-<h2 id="the-matlab-part">The Matlab part</h2>
+	    <span class="p">}</span>
+        <span class="p">}</span>		
+    <span class="p">}</span>
+</code></pre></div><p>The code is actually very simple. Just some <code>for</code> loops that run through the matrix storing the graph data, a random number generator, and an <code>if</code> that checks if the number is even or odd. If its even, then the lightning strucks the tree in the position <em>m[i][j]</em> (and <em>m[j][i]</em>, since its a two way path), therefore changing the cell <em>m[i][j]</em> value from 1 to 0.</p>
+<p>After that, the output is printed, and the paths are evaluated by the function <em>search_path( )</em>. If all nodes are connected, then Tarzan can traverse all regions.</p>
+<blockquote>
+<p>But, to allow graphical representations, we must store our gathered data somewhere. Right?</p>
+</blockquote>
+<p>That&rsquo;s where the function <em>generate_file( )</em> comes in handy. First, the function creates a file named graph.txt, if it wasn&rsquo;t created already. After that, we write all the cells of our graph&rsquo;s matrix on the txt file.
+And here&rsquo;s our code:</p>
+<h3 id="exporting-the-data-into-a-file">Exporting the data into a file</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c">    <span class="kt">void</span> <span class="nf">generate_file</span><span class="p">(</span><span class="n">Graph</span> <span class="o">*</span><span class="n">g</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">;</span>
+        <span class="n">FILE</span> <span class="o">*</span><span class="n">arq</span><span class="p">;</span>
+        <span class="n">arq</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="s">&#34;graph.txt&#34;</span><span class="p">,</span> <span class="s">&#34;w&#34;</span><span class="p">);</span> <span class="c1">//open graph.txt in write mode
+</span><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">vert</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">vert</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">fprintf</span><span class="p">(</span><span class="n">arq</span><span class="p">,</span> <span class="s">&#34;%d &#34;</span><span class="p">,</span> <span class="n">g</span><span class="o">-&gt;</span><span class="n">matrix_Adj</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span> 
+                <span class="c1">//writes the value of the cell on the txt file
+</span><span class="c1"></span>            <span class="p">}</span>
+            <span class="n">fprintf</span><span class="p">(</span><span class="n">arq</span><span class="p">,</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">fclose</span><span class="p">(</span><span class="n">arq</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+</code></pre></div><h2 id="the-matlab-part">The Matlab part</h2>
+<p>Well, you can say that I&rsquo;m a sucker for graphics. Of course, who doesn&rsquo;t love expending numerous hours behind a computer screen just to create a single image?</p>
+<p>But I must give credit where credit is due. Programming in Matlab language ain&rsquo;t easy if you&rsquo;re not into mathematics. And that&rsquo;s the sole reason why I find so satisfying when those crazy little lines show up on the screen.</p>
+<p>Still, we need numbers to form our crazy little lines. Luckly, we have our graph.txt file to help.
+Therefore, the first thing we need to do is import our file and convert it into a new matrix. Then, we must find a way to transform the columns (or lines) of this matrix into our nodes.
+For a better visual representation, the nodes will be placed in a radius of 1 unity from the center of the graphic, and equidistant from adjacent nodes (just like in a regular polygon). This is possible by this simple equation in this <code>for</code> loop:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-matlab" data-lang="matlab">    
+    <span class="n">G</span> <span class="p">=</span> <span class="n">load</span><span class="p">(</span><span class="s">&#39;graph.txt&#39;</span><span class="p">)</span> <span class="c">% stores the matrix</span>
+
+    <span class="n">V</span> <span class="p">=</span> <span class="p">[</span><span class="nb">size</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="mi">3</span><span class="p">];</span> 
+
+    <span class="k">for</span> <span class="nb">i</span><span class="p">=</span><span class="mi">1</span><span class="p">:</span><span class="mi">1</span><span class="p">:</span><span class="nb">size</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">x</span> <span class="p">=</span> <span class="nb">cos</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="nb">i</span><span class="p">)</span> <span class="o">/</span> <span class="nb">size</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span> <span class="c">% x coordinate of the node i</span>
+        <span class="n">y</span> <span class="p">=</span> <span class="nb">sin</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="nb">pi</span><span class="o">*</span><span class="nb">i</span><span class="p">)</span> <span class="o">/</span> <span class="nb">size</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="mi">1</span><span class="p">));</span> <span class="c">% y coordinate of the node i</span>
+    
+        <span class="n">V</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">=</span> <span class="n">x</span><span class="p">;</span>
+        <span class="n">V</span><span class="p">(</span><span class="nb">i</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span> <span class="p">=</span> <span class="n">y</span><span class="p">;</span>
+    <span class="n">endfor</span></code></pre></div>
+<p>After that, it&rsquo;s just a matter of connecting dots and erasing lines. The code is available on <a class="link" href="https://github.com/tiagowtbt/Tarzan_forest"  target="_blank" rel="noopener"
+    >GitHub</a>, in case you want to see how the plot of the lines and the rest of the graph is done.
+By plotting our graph, we can visualize our initial output and see if it is really impossible to traverse Tarzan&rsquo;s Forest.</p>
+<p><figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 181; 
+			flex-basis: 434px"
+	>
+	<a href="https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestAfterStorm.png" data-size="598x330">
+		<img src="https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestAfterStorm.png"
+			width="598"
+			height="330"
+			srcset="https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestAfterStorm_hu839ccd957c2aba17dff2757b03ff585d_20333_480x0_resize_box_3.png 480w, https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/ForestAfterStorm_hu839ccd957c2aba17dff2757b03ff585d_20333_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Terminal output">
+	</a>
+	
+	<figcaption>Terminal output</figcaption>
+	
+</figure> <figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 115; 
+			flex-basis: 276px"
+	>
+	<a href="https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/graph_plot.png" data-size="967x840">
+		<img src="https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/graph_plot.png"
+			width="967"
+			height="840"
+			srcset="https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/graph_plot_hu10fbd14068423d5ce90e66c5d55796d8_59085_480x0_resize_box_3.png 480w, https://tiagowtbt.github.io/Portfolio/p/tarzans-forest/graph_plot_hu10fbd14068423d5ce90e66c5d55796d8_59085_1024x0_resize_box_3.png 1024w"
+			loading="lazy"
+			alt="Graph plot">
+	</a>
+	
+	<figcaption>Graph plot</figcaption>
+	
+</figure></p>
 
 </section>
 
@@ -383,6 +463,7 @@ After that, we populate the matrix&rsquo;s graph as said early with a loop and t
     <li><a href="#the-c-part">The C part</a>
       <ol>
         <li><a href="#storm-simulation">Storm Simulation</a></li>
+        <li><a href="#exporting-the-data-into-a-file">Exporting the data into a file</a></li>
       </ol>
     </li>
     <li><a href="#the-matlab-part">The Matlab part</a></li>
