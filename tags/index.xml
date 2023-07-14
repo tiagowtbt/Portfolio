@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Tags on Tiago Barros</title>
+        <link>https://tiagowtbt.github.io/Portfolio/tags/</link>
+        <description>Recent content in Tags on Tiago Barros</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Wed, 08 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://tiagowtbt.github.io/Portfolio/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>C</title>
+        <link>https://tiagowtbt.github.io/Portfolio/tags/c/</link>
+        <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://tiagowtbt.github.io/Portfolio/tags/c/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Coding</title>
+        <link>https://tiagowtbt.github.io/Portfolio/tags/coding/</link>
+        <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://tiagowtbt.github.io/Portfolio/tags/coding/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Graphs</title>
+        <link>https://tiagowtbt.github.io/Portfolio/tags/graphs/</link>
+        <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://tiagowtbt.github.io/Portfolio/tags/graphs/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Matlab</title>
+        <link>https://tiagowtbt.github.io/Portfolio/tags/matlab/</link>
+        <pubDate>Wed, 08 Dec 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://tiagowtbt.github.io/Portfolio/tags/matlab/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>
